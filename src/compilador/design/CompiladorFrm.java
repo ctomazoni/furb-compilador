@@ -57,6 +57,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         jScrollPane2.setMinimumSize(new java.awt.Dimension(750, 105));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(750, 105));
 
+        areaMensagemTA.setEditable(false);
         areaMensagemTA.setColumns(20);
         areaMensagemTA.setRows(5);
         areaMensagemTA.setMinimumSize(new java.awt.Dimension(700, 250));
