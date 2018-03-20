@@ -39,24 +39,29 @@ public class CompiladorFrm extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(900, 620));
         setPreferredSize(new java.awt.Dimension(900, 620));
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setToolTipText("");
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setMinimumSize(new java.awt.Dimension(735, 480));
         jScrollPane1.setOpaque(false);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(735, 480));
 
         editorTA.setColumns(20);
         editorTA.setRows(5);
-        editorTA.setMinimumSize(new java.awt.Dimension(750, 480));
-        editorTA.setPreferredSize(new java.awt.Dimension(750, 480));
+        editorTA.setMinimumSize(null);
+        editorTA.setPreferredSize(null);
         jScrollPane1.setViewportView(editorTA);
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setMinimumSize(new java.awt.Dimension(750, 105));
         jScrollPane2.setPreferredSize(new java.awt.Dimension(750, 105));
 
         areaMensagemTA.setColumns(20);
         areaMensagemTA.setRows(5);
-        areaMensagemTA.setMinimumSize(new java.awt.Dimension(750, 105));
+        areaMensagemTA.setMinimumSize(new java.awt.Dimension(700, 250));
         areaMensagemTA.setName(""); // NOI18N
-        areaMensagemTA.setPreferredSize(new java.awt.Dimension(750, 105));
+        areaMensagemTA.setPreferredSize(null);
         jScrollPane2.setViewportView(areaMensagemTA);
 
         jPanel1.setMinimumSize(new java.awt.Dimension(145, 590));
@@ -83,16 +88,15 @@ public class CompiladorFrm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 888, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(8, 8, 8)))
-                .addGap(2, 2, 2))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
