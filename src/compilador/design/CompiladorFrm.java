@@ -5,6 +5,9 @@
  */
 package compilador.design;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ctomazoni
@@ -32,7 +35,15 @@ public class CompiladorFrm extends javax.swing.JFrame {
         editorTA = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         areaMensagemTA = new javax.swing.JTextArea();
-        jPanel1 = new javax.swing.JPanel();
+        barraFerramentas = new javax.swing.JPanel();
+        btnNew = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        btnCopy = new javax.swing.JButton();
+        btnPaste = new javax.swing.JButton();
+        btnCut = new javax.swing.JButton();
+        btnCompile = new javax.swing.JButton();
+        btnAbout = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,19 +76,42 @@ public class CompiladorFrm extends javax.swing.JFrame {
         areaMensagemTA.setPreferredSize(null);
         jScrollPane2.setViewportView(areaMensagemTA);
 
-        jPanel1.setMinimumSize(new java.awt.Dimension(145, 590));
-        jPanel1.setPreferredSize(new java.awt.Dimension(145, 590));
+        barraFerramentas.setMinimumSize(new java.awt.Dimension(145, 590));
+        barraFerramentas.setPreferredSize(new java.awt.Dimension(145, 590));
+        barraFerramentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 145, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        btnNew.setText("new [ctrl-n]");
+        btnNew.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 60));
+
+        btnSave.setText("save [ctrl-s]");
+        btnSave.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 145, 60));
+
+        btnOpen.setText("open [ctrl-o]");
+        btnOpen.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 145, 60));
+
+        btnCopy.setText("copy [ctrl-c]");
+        btnCopy.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnCopy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 145, 60));
+
+        btnPaste.setText("paste [ctrl-v]");
+        btnPaste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPaste.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnPaste, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 145, 60));
+
+        btnCut.setText("cut [ctrl-x]");
+        btnCut.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnCut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 145, 60));
+
+        btnCompile.setText("compile [F9]");
+        btnCompile.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnCompile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 145, 60));
+
+        btnAbout.setText("about [F1]");
+        btnAbout.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        barraFerramentas.add(btnAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 145, 60));
 
         jLabel1.setText("BARRA");
         jLabel1.setMinimumSize(new java.awt.Dimension(900, 25));
@@ -92,7 +126,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -105,12 +139,12 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -156,9 +190,17 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaMensagemTA;
+    private javax.swing.JPanel barraFerramentas;
+    private javax.swing.JButton btnAbout;
+    private javax.swing.JButton btnCompile;
+    private javax.swing.JButton btnCopy;
+    private javax.swing.JButton btnCut;
+    private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnOpen;
+    private javax.swing.JButton btnPaste;
+    private javax.swing.JButton btnSave;
     private javax.swing.JTextArea editorTA;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
