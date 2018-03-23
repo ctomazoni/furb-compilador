@@ -30,6 +30,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jScrollPane1 = new javax.swing.JScrollPane();
         editorTA = new javax.swing.JTextArea();
@@ -49,6 +50,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 620));
         setPreferredSize(new java.awt.Dimension(900, 620));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setToolTipText("");
@@ -63,6 +65,18 @@ public class CompiladorFrm extends javax.swing.JFrame {
         editorTA.setPreferredSize(null);
         jScrollPane1.setViewportView(editorTA);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = -10;
+        gridBagConstraints.ipady = -13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(11, 6, 0, 14);
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setMinimumSize(new java.awt.Dimension(750, 105));
@@ -70,88 +84,114 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
         areaMensagemTA.setEditable(false);
         areaMensagemTA.setColumns(20);
+        areaMensagemTA.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         areaMensagemTA.setRows(5);
         areaMensagemTA.setMinimumSize(new java.awt.Dimension(700, 250));
         areaMensagemTA.setName(""); // NOI18N
-        areaMensagemTA.setPreferredSize(null);
         jScrollPane2.setViewportView(areaMensagemTA);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = -25;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 14);
+        getContentPane().add(jScrollPane2, gridBagConstraints);
 
         barraFerramentas.setMinimumSize(new java.awt.Dimension(145, 590));
         barraFerramentas.setPreferredSize(new java.awt.Dimension(145, 590));
         barraFerramentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/new.png"))); // NOI18N
         btnNew.setText("new [ctrl-n]");
+        btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNew.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 60));
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/save.png"))); // NOI18N
         btnSave.setText("save [ctrl-s]");
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 145, 60));
 
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/open.png"))); // NOI18N
         btnOpen.setText("open [ctrl-o]");
+        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 145, 60));
 
+        btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/copy.png"))); // NOI18N
         btnCopy.setText("copy [ctrl-c]");
+        btnCopy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCopy.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnCopy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnCopy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 145, 60));
 
+        btnPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/paste.png"))); // NOI18N
         btnPaste.setText("paste [ctrl-v]");
         btnPaste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPaste.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnPaste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnPaste, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 145, 60));
 
         btnCut.setText("cut [ctrl-x]");
+        btnCut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCut.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnCut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnCut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 145, 60));
 
+        btnCompile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/compile.png"))); // NOI18N
         btnCompile.setText("compile [F9]");
+        btnCompile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCompile.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnCompile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnCompile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 145, 60));
 
+        btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/about.png"))); // NOI18N
         btnAbout.setText("about [F1]");
+        btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnAbout.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAboutActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 145, 60));
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
+        getContentPane().add(barraFerramentas, gridBagConstraints);
 
         jLabel1.setText("BARRA");
         jLabel1.setMinimumSize(new java.awt.Dimension(900, 25));
         jLabel1.setPreferredSize(new java.awt.Dimension(900, 25));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 874, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addGap(14, 14, 14))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = -24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 10, 11, 14);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAboutActionPerformed
+        // TODO add your handling code here:
+        areaMensagemTA.setText("Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
+    }//GEN-LAST:event_btnAboutActionPerformed
 
     /**
      * @param args the command line arguments
