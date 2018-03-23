@@ -140,6 +140,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnPaste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         barraFerramentas.add(btnPaste, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 145, 60));
 
+        btnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/cut.png"))); // NOI18N
         btnCut.setText("cut [ctrl-x]");
         btnCut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCut.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
