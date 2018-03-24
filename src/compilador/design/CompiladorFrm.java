@@ -5,8 +5,24 @@
  */
 package compilador.design;
 
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -17,6 +33,9 @@ public class CompiladorFrm extends javax.swing.JFrame {
     /**
      * Creates new form CompiladorFrm
      */
+    private File arquivoAtual = null;
+    private boolean isArquivoNovo = true;
+    
     public CompiladorFrm() {
         initComponents();
         editorTA.setBorder(new NumberedBorder());
@@ -45,7 +64,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnCut = new javax.swing.JButton();
         btnCompile = new javax.swing.JButton();
         btnAbout = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        barraStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 620));
@@ -61,6 +80,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
         editorTA.setColumns(20);
         editorTA.setRows(5);
+        editorTA.setTabSize(4);
         editorTA.setMinimumSize(null);
         editorTA.setPreferredSize(null);
         jScrollPane1.setViewportView(editorTA);
@@ -86,6 +106,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         areaMensagemTA.setColumns(20);
         areaMensagemTA.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         areaMensagemTA.setRows(5);
+        areaMensagemTA.setTabSize(4);
         areaMensagemTA.setMinimumSize(new java.awt.Dimension(700, 250));
         areaMensagemTA.setName(""); // NOI18N
         jScrollPane2.setViewportView(areaMensagemTA);
@@ -110,6 +131,16 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNew.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnNew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
+        btnNew.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btnNewKeyReleased(evt);
+            }
+        });
         barraFerramentas.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 60));
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/save.png"))); // NOI18N
@@ -117,6 +148,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 145, 60));
 
         btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/open.png"))); // NOI18N
@@ -124,6 +160,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 145, 60));
 
         btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/copy.png"))); // NOI18N
@@ -174,9 +215,8 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
         getContentPane().add(barraFerramentas, gridBagConstraints);
 
-        jLabel1.setText("BARRA");
-        jLabel1.setMinimumSize(new java.awt.Dimension(900, 25));
-        jLabel1.setPreferredSize(new java.awt.Dimension(900, 25));
+        barraStatus.setMinimumSize(new java.awt.Dimension(900, 25));
+        barraStatus.setPreferredSize(new java.awt.Dimension(900, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -184,7 +224,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.ipadx = -24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 10, 11, 14);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(barraStatus, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -193,6 +233,32 @@ public class CompiladorFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         areaMensagemTA.setText("Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
     }//GEN-LAST:event_btnAboutActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+        try {
+            realizarOpen();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao abrir arquivo: " + ex.getMessage() + ". Contate os administradores do sistema e tente novamente.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnOpenActionPerformed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        realizarNovo();
+    }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        try {
+            realizarSalvar();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar arquivo: " + ex.getMessage() + ". Contate os administradores do sistema e tente novamente.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnNewKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNewKeyReleased
+        
+    }//GEN-LAST:event_btnNewKeyReleased
 
     /**
      * @param args the command line arguments
@@ -228,10 +294,77 @@ public class CompiladorFrm extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void realizarNovo() {
+        editorTA.setText("");
+        areaMensagemTA.setText("");
+        barraStatus.setText("");
+        isArquivoNovo = true;
+        arquivoAtual = null;
+    }
+    
+    private void realizarOpen() throws IOException {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.addChoosableFileFilter(new TextoFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int resposta = fileChooser.showOpenDialog(this);
+        if (JFileChooser.APPROVE_OPTION == resposta) {
+            File arquivo = fileChooser.getSelectedFile();
+            String absolutePath = arquivo.getAbsolutePath();
+            String conteudo = Files.readAllLines(Paths.get(absolutePath)).stream().collect(Collectors.joining("\r\n"));
+            
+            editorTA.setText(conteudo);
+            areaMensagemTA.setText("");
+            barraStatus.setText(absolutePath);
+            arquivoAtual = arquivo;
+            isArquivoNovo = false;
+        }
+    }
+    
+    private void realizarSalvar() throws IOException {
+        String texto = editorTA.getText();
+        
+        if (isArquivoNovo) {
+            JFileChooser fileChooser = new JFileChooser();
+            int resposta = fileChooser.showSaveDialog(this);
+            
+            if (JFileChooser.APPROVE_OPTION == resposta) {
+                
+                String nomeArquivo = fileChooser.getSelectedFile() + ".txt";
+                
+                escreverArquivo(nomeArquivo, texto);
+                
+                areaMensagemTA.setText("");
+                barraStatus.setText(nomeArquivo);
+                
+                isArquivoNovo = false;
+                arquivoAtual = new File(nomeArquivo);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
+            
+        } else {
+            escreverArquivo(arquivoAtual.getAbsolutePath(), texto);
+            areaMensagemTA.setText("");
+            arquivoAtual = new File(arquivoAtual.getAbsolutePath());
+            
+            JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
+    private void escreverArquivo(String nomeArquivo, String textoQuebrado) throws IOException {
+        try (
+            BufferedReader reader = new BufferedReader(new StringReader(textoQuebrado));
+            PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo)); ) {
+                reader.lines().forEach(line -> writer.println(line));
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaMensagemTA;
     private javax.swing.JPanel barraFerramentas;
+    private javax.swing.JLabel barraStatus;
     private javax.swing.JButton btnAbout;
     private javax.swing.JButton btnCompile;
     private javax.swing.JButton btnCopy;
@@ -241,8 +374,21 @@ public class CompiladorFrm extends javax.swing.JFrame {
     private javax.swing.JButton btnPaste;
     private javax.swing.JButton btnSave;
     private javax.swing.JTextArea editorTA;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+    private class TextoFilter extends FileFilter {
+
+        @Override
+        public boolean accept(File f) {
+            return f.isDirectory() || f.getName().endsWith(".txt");
+        }
+
+        @Override
+        public String getDescription() {
+            return "Arquivos de texto";
+        }
+    }
+
 }
