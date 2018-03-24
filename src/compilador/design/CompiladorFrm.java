@@ -191,7 +191,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     private void btnAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAboutActionPerformed
         // TODO add your handling code here:
-        areaMensagemTA.setText("Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
+        areaMensagemTA.setText(areaMensagemTA.getText() + "Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
     }//GEN-LAST:event_btnAboutActionPerformed
 
     /**
