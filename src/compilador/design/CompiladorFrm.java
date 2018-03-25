@@ -134,7 +134,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         barraFerramentas.setPreferredSize(new java.awt.Dimension(145, 590));
         barraFerramentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/new.png"))); // NOI18N
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/new.png"))); // NOI18N
         btnNew.setText("new [ctrl-n]");
         btnNew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnNew.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -146,7 +146,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 60));
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/save.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/save.png"))); // NOI18N
         btnSave.setText("save [ctrl-s]");
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -158,7 +158,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 145, 60));
 
-        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/open.png"))); // NOI18N
+        btnOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/open.png"))); // NOI18N
         btnOpen.setText("open [ctrl-o]");
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -170,7 +170,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnOpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 145, 60));
 
-        btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/copy.png"))); // NOI18N
+        btnCopy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/copy.png"))); // NOI18N
         btnCopy.setText("copy [ctrl-c]");
         btnCopy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCopy.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -182,7 +182,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnCopy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 145, 60));
 
-        btnPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/paste.png"))); // NOI18N
+        btnPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/paste.png"))); // NOI18N
         btnPaste.setText("paste [ctrl-v]");
         btnPaste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPaste.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -194,7 +194,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnPaste, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 145, 60));
 
-        btnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/cut.png"))); // NOI18N
+        btnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/cut.png"))); // NOI18N
         btnCut.setText("cut [ctrl-x]");
         btnCut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCut.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -206,7 +206,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnCut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 145, 60));
 
-        btnCompile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/compile.png"))); // NOI18N
+        btnCompile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/compile.png"))); // NOI18N
         btnCompile.setText("compile [F9]");
         btnCompile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCompile.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -218,7 +218,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnCompile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 145, 60));
 
-        btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/about.png"))); // NOI18N
+        btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/img/about.png"))); // NOI18N
         btnAbout.setText("about [F1]");
         btnAbout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnAbout.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
