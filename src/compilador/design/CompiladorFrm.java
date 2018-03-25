@@ -5,6 +5,9 @@
  */
 package compilador.design;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -172,6 +175,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnCopy.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCopy.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnCopy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCopyActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnCopy, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 145, 60));
 
         btnPaste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/paste.png"))); // NOI18N
@@ -179,6 +187,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnPaste.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPaste.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnPaste.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPaste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasteActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnPaste, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 145, 60));
 
         btnCut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/cut.png"))); // NOI18N
@@ -186,6 +199,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnCut.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCut.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnCut.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCutActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnCut, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 145, 60));
 
         btnCompile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/compile.png"))); // NOI18N
@@ -265,6 +283,20 @@ public class CompiladorFrm extends javax.swing.JFrame {
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
         areaMensagemTA.setText("Compilação de programas ainda não foi implementada.");
     }//GEN-LAST:event_btnCompileActionPerformed
+
+    private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        StringSelection selection = new StringSelection(editorTA.getSelectedText());
+        clipboard.setContents(selection, null);
+    }//GEN-LAST:event_btnCopyActionPerformed
+
+    private void btnPasteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasteActionPerformed
+        editorTA.paste();
+    }//GEN-LAST:event_btnPasteActionPerformed
+
+    private void btnCutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCutActionPerformed
+        editorTA.cut();
+    }//GEN-LAST:event_btnCutActionPerformed
 
     /**
      * @param args the command line arguments
