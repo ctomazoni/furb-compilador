@@ -423,10 +423,10 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 
                 isArquivoNovo = false;
                 arquivoAtual = new File(nomeArquivo);
+                
+                JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-            JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
-            
+   
         } else {
             escreverArquivo(arquivoAtual.getAbsolutePath(), texto);
             areaMensagemTA.setText("");
