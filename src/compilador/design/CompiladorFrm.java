@@ -5,7 +5,7 @@
  */
 package compilador.design;
 
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,15 +14,16 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -39,6 +40,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
     public CompiladorFrm() {
         initComponents();
         editorTA.setBorder(new NumberedBorder());
+        criaAtalhosTeclado();
     }
 
     /**
@@ -51,6 +53,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        compiladorJP = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         editorTA = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -69,7 +72,9 @@ public class CompiladorFrm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 620));
         setPreferredSize(new java.awt.Dimension(900, 620));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
+
+        compiladorJP.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setToolTipText("");
@@ -95,7 +100,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(11, 6, 0, 14);
-        getContentPane().add(jScrollPane1, gridBagConstraints);
+        compiladorJP.add(jScrollPane1, gridBagConstraints);
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -120,7 +125,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 14);
-        getContentPane().add(jScrollPane2, gridBagConstraints);
+        compiladorJP.add(jScrollPane2, gridBagConstraints);
 
         barraFerramentas.setMinimumSize(new java.awt.Dimension(145, 590));
         barraFerramentas.setPreferredSize(new java.awt.Dimension(145, 590));
@@ -134,11 +139,6 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
-            }
-        });
-        btnNew.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                btnNewKeyReleased(evt);
             }
         });
         barraFerramentas.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 145, 60));
@@ -193,6 +193,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
         btnCompile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCompile.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btnCompile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCompile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompileActionPerformed(evt);
+            }
+        });
         barraFerramentas.add(btnCompile, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 145, 60));
 
         btnAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/compilador/design/about.png"))); // NOI18N
@@ -213,7 +218,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(11, 10, 0, 0);
-        getContentPane().add(barraFerramentas, gridBagConstraints);
+        compiladorJP.add(barraFerramentas, gridBagConstraints);
 
         barraStatus.setMinimumSize(new java.awt.Dimension(900, 25));
         barraStatus.setPreferredSize(new java.awt.Dimension(900, 25));
@@ -224,14 +229,15 @@ public class CompiladorFrm extends javax.swing.JFrame {
         gridBagConstraints.ipadx = -24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 10, 11, 14);
-        getContentPane().add(barraStatus, gridBagConstraints);
+        compiladorJP.add(barraStatus, gridBagConstraints);
+
+        getContentPane().add(compiladorJP);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAboutActionPerformed
-        // TODO add your handling code here:
-        areaMensagemTA.setText(areaMensagemTA.getText() + "Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
+        areaMensagemTA.setText("Desenvolvido por:\n- Cleber Tomazoni\n- Gabriel Deggau Schmidt\n- Nicolas José Cordeiro Viana\n");
     }//GEN-LAST:event_btnAboutActionPerformed
 
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
@@ -256,9 +262,9 @@ public class CompiladorFrm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnNewKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNewKeyReleased
-        
-    }//GEN-LAST:event_btnNewKeyReleased
+    private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
+        areaMensagemTA.setText("Compilação de programas ainda não foi implementada.");
+    }//GEN-LAST:event_btnCompileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,6 +299,51 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 new CompiladorFrm().setVisible(true);
             }
         });
+    }
+    
+    private void criaAtalhosTeclado() {
+        Action newAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        };
+        Action openAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        };
+        Action saveAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        };
+        Action compileAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnCompileActionPerformed(evt);
+            }
+        };
+        Action aboutAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnAboutActionPerformed(evt);
+            }
+        };
+        ActionMap actionMap = compiladorJP.getActionMap();
+        actionMap.put("new", newAction);
+        actionMap.put("open", openAction);
+        actionMap.put("save", saveAction);
+        actionMap.put("compile", compileAction);
+        actionMap.put("about", aboutAction);
+        InputMap imap = compiladorJP.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        imap.put(KeyStroke.getKeyStroke("ctrl N"), "new");
+        imap.put(KeyStroke.getKeyStroke("ctrl O"), "open");
+        imap.put(KeyStroke.getKeyStroke("ctrl S"), "save");
+        imap.put(KeyStroke.getKeyStroke("F9"), "compile");
+        imap.put(KeyStroke.getKeyStroke("F1"), "about");
     }
     
     private void realizarNovo() {
@@ -373,6 +424,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
     private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPaste;
     private javax.swing.JButton btnSave;
+    private javax.swing.JPanel compiladorJP;
     private javax.swing.JTextArea editorTA;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
