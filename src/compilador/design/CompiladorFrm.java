@@ -5,6 +5,9 @@
  */
 package compilador.design;
 
+import compilador.LexicalError;
+import compilador.Lexico;
+import compilador.Token;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -283,7 +286,18 @@ public class CompiladorFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
-        areaMensagemTA.setText("Compilação de programas ainda não foi implementada.");
+        Lexico lexico = new Lexico();
+        //...
+        lexico.setInput(new StringReader(editorTA.getText()));
+        //...
+        try{
+            Token t = null;
+            while ( (t = lexico.nextToken()) != null ){
+                areaMensagemTA.append(t.getLexeme()+"\n");
+            }
+        }catch(LexicalError e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnCompileActionPerformed
 
     private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
