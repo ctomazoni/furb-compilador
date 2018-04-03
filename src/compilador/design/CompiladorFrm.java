@@ -77,14 +77,16 @@ public class CompiladorFrm extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(900, 620));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
+        compiladorJP.setMinimumSize(new java.awt.Dimension(900, 620));
+        compiladorJP.setPreferredSize(new java.awt.Dimension(900, 620));
         compiladorJP.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setToolTipText("");
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(735, 480));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(750, 480));
         jScrollPane1.setOpaque(false);
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(735, 480));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(750, 480));
 
         editorTA.setColumns(20);
         editorTA.setRows(5);
