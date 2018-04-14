@@ -8,6 +8,8 @@ package compilador.design;
 import compilador.LexicalError;
 import compilador.Lexico;
 import compilador.Token;
+import compilador.TratamentoLexico;
+import compilador.identificadorlinhas.IdentificadorLinha;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -287,15 +289,15 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
         Lexico lexico = new Lexico();
-        //...
         lexico.setInput(new StringReader(editorTA.getText()));
-        //...
-        try{
+        try {
             Token t = null;
-            while ( (t = lexico.nextToken()) != null ){
-                areaMensagemTA.append(t.getLexeme()+"\n");
+            areaMensagemTA.setText("linha classe              lexema\n");
+            while ((t = lexico.nextToken()) != null) {
+                areaMensagemTA.append(new TratamentoLexico(t).obterTokenTratado()+"\n");
             }
-        }catch(LexicalError e){
+            areaMensagemTA.append("Programa compilado com sucesso.");
+        } catch (LexicalError e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnCompileActionPerformed
