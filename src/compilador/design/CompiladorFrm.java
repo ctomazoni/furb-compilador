@@ -5,9 +5,13 @@
  */
 package compilador.design;
 
+
 import compilador.LexicalError;
 import compilador.Lexico;
 import compilador.Token;
+import compilador.identificadorlinhas.IdentificadorLinha;
+import compilador.identificadorlinhas.InformacaoLinha;
+import compilador.identificadorlinhas.LinhaNaoEncontradaException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -20,6 +24,8 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -287,17 +293,35 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
         Lexico lexico = new Lexico();
-        //...
         lexico.setInput(new StringReader(editorTA.getText()));
-        //...
+        areaMensagemTA.setText("");
+        String format = "%1$-5s %2$-20s %3$-5s";
+        IdentificadorLinha id = new IdentificadorLinha();
         try{
             Token t = null;
-            while ( (t = lexico.nextToken()) != null ){
-                areaMensagemTA.append(t.getLexeme()+"\n");
+            if((t = lexico.nextToken()) != null){
+                areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
+                while ( (t = lexico.nextToken()) != null ){
+                    InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
+                    String classe = identificarClasse(t.getId());
+                    areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
+                }
+                areaMensagemTA.append("programa compilado com sucesso");
+            }else{
+                areaMensagemTA.append("nenhum programa para compilar na área reservada para mensagens");
             }
         }catch(LexicalError e){
-            e.printStackTrace();
+            try {
+                InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
+                areaMensagemTA.setText("");
+                areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + e.getMessage());
+            } catch (LinhaNaoEncontradaException ex) {
+                Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (LinhaNaoEncontradaException ex) {
+            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_btnCompileActionPerformed
 
     private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
@@ -457,6 +481,22 @@ public class CompiladorFrm extends javax.swing.JFrame {
             BufferedReader reader = new BufferedReader(new StringReader(textoQuebrado));
             PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo)); ) {
                 reader.lines().forEach(line -> writer.println(line));
+        }
+    }
+    
+    public String identificarClasse(int idToken){
+        if(idToken == 2){
+            return "identificador";
+        }else if(idToken == 3){
+            return "constante inteira";
+        }else if(idToken == 4){
+            return "constante real";
+        }else if(idToken == 5){
+            return "constante caractere";
+        }else if(idToken >= 6 && idToken <= 27){
+            return "palavra reservada";
+        }else{
+            return "símbolo especial";
         }
     }
     

@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/windows/Desktop/furb-compilador/src/compilador/design/CompiladorFrm.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/ScannerConstants.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/identificadorlinhas/IdentificadorLinha.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/LexicalError.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/Constants.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/design/CompiladorFrm.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/AnalysisError.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/Token.java</file>
+            <file>file:/C:/Users/NOT/Documents/NetBeansProjects/furb-compilador/src/compilador/Lexico.java</file>
         </group>
     </open-files>
 </project-private>

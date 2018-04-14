@@ -9,6 +9,7 @@ public interface Constants extends ScannerConstants
     int t_const_inteira = 3;
     int t_const_real = 4;
     int t_const_caract = 5;
+    // INICIO PALAVRAS RESERVADAS
     int t_ENDIF = 6;
     int t_BOOL = 7;
     int t_CONSTS = 8;
@@ -31,6 +32,7 @@ public interface Constants extends ScannerConstants
     int t_VAR = 25;
     int t_WHILEFALSE = 26;
     int t_WHILETRUE = 27;
+    // FIM PALAVRAS RESERVADAS
     int t_TOKEN_28 = 28; //":"
     int t_TOKEN_29 = 29; //"("
     int t_TOKEN_30 = 30; //")"

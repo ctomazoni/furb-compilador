@@ -885,7 +885,7 @@ public interface ScannerConstants
         "Caractere n�o esperado",
         "",
         "",
-        "Erro identificando const_caract",
+        "constante caractere inválida ou não finalizada",
         "Erro identificando <ignorar>",
         "Erro identificando \"&&\"",
         "",
