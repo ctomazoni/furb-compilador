@@ -9,9 +9,11 @@ package compilador.design;
 import compilador.LexicalError;
 import compilador.Lexico;
 import compilador.Token;
+
 import compilador.identificadorlinhas.IdentificadorLinha;
 import compilador.identificadorlinhas.InformacaoLinha;
 import compilador.identificadorlinhas.LinhaNaoEncontradaException;
+
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
