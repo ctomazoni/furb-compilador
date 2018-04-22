@@ -299,24 +299,28 @@ public class CompiladorFrm extends javax.swing.JFrame {
         areaMensagemTA.setText("");
         String format = "%1$-5s %2$-20s %3$-5s";
         IdentificadorLinha id = new IdentificadorLinha();
-        try{
+        try {
             Token t = null;
-            if((t = lexico.nextToken()) != null){
+            if (editorTA != null) {
                 areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
-                while ( (t = lexico.nextToken()) != null ){
+                while ((t = lexico.nextToken()) != null) {
                     InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
                     String classe = identificarClasse(t.getId());
                     areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
                 }
-                areaMensagemTA.append("programa compilado com sucesso");
-            }else{
-                areaMensagemTA.append("nenhum programa para compilar na área reservada para mensagens");
+                areaMensagemTA.append("Programa compilado com sucesso.");
+            } else {
+                areaMensagemTA.append("Nenhum programa para compilar na área reservada para mensagens.");
             }
-        }catch(LexicalError e){
+        } catch (LexicalError e) {
             try {
                 InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
                 areaMensagemTA.setText("");
-                areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + e.getMessage());
+                String msgErro = e.getMessage();
+                if ("símbolo inválido".equals(msgErro)) {
+                    msgErro = id.getInformacaoPosicao(linha.getPosicaoInicio(), linha.getPosicaoFim()) + " " + msgErro;
+                }
+                areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + msgErro);
             } catch (LinhaNaoEncontradaException ex) {
                 Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
             }

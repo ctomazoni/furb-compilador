@@ -882,11 +882,11 @@ public interface ScannerConstants
 
     String[] SCANNER_ERROR =
     {
-        "Caractere não esperado",
+        "símbolo inválido",
         "",
         "",
         "constante caractere inválida ou não finalizada",
-        "Erro identificando <ignorar>",
+        "comentário de bloco inválido ou não finalizado",
         "Erro identificando \"&&\"",
         "",
         "",
