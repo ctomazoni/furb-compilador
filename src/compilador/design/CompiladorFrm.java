@@ -318,7 +318,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 areaMensagemTA.setText("");
                 String msgErro = e.getMessage();
                 if ("símbolo inválido".equals(msgErro)) {
-                    msgErro = id.getInformacaoPosicao(linha.getPosicaoInicio(), linha.getPosicaoFim()) + " " + msgErro;
+                    msgErro = id.getSimboloInvalido(e.getPosition(), editorTA.getText()) + " " + msgErro;
                 }
                 areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + msgErro);
             } catch (LinhaNaoEncontradaException ex) {

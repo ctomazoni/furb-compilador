@@ -36,27 +36,17 @@ public class IdentificadorLinha {
                 .orElseThrow(() -> new LinhaNaoEncontradaException());
     }
 
-    public String getInformacaoPosicao(int posicaoInicio, int posicaoFim) {
+    public String getSimboloInvalido(int posicaoErro, String texto) {
         String info = "";
-        int posicaoAnterior = 0;
-        String[] textos = txt.split("\\n");
-        for (String textoLinha : textos) {
-            if (posicaoInicio == posicaoAnterior
-                    && posicaoFim == (posicaoAnterior + textoLinha.length())) {
-                return textoLinha.substring(posicaoInicio, posicaoFim);
-//                Outras tentativas:
-//                return textoLinha.substring(posicaoAnterior);
-//                return textoLinha.substring(textoLinha.length() + 1);
-//                return textoLinha.substring(textoLinha.length() - 1);
-//                return textoLinha.substring(posicaoAnterior, textoLinha.length() - 1);
-//                return textoLinha.substring(posicaoAnterior, posicaoFim);
-//                return textoLinha.substring(0, posicaoFim);
-//                return textoLinha.substring(posicaoInicio, posicaoFim);
-//                return textoLinha.substring(posicaoInicio-posicaoAnterior, posicaoFim);
-//                return textoLinha.substring(posicaoInicio-textoLinha.length()+posicaoAnterior, posicaoFim);
+        
+        for (int i = posicaoErro; i < texto.length(); i++) {
+            String charPos = String.valueOf(texto.charAt(i));
+            if (charPos.equals("\n") || charPos.equals("\\s")) {
+                break;
             }
-            posicaoAnterior = posicaoAnterior + textoLinha.length() + 1;
+            info = info + charPos;
         }
+        
         return info;
     }
 
