@@ -301,7 +301,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         IdentificadorLinha id = new IdentificadorLinha();
         try {
             Token t = null;
-            if (editorTA != null) {
+            if (!"".equals(editorTA.getText().trim())) {
                 areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
                 while ((t = lexico.nextToken()) != null) {
                     InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
