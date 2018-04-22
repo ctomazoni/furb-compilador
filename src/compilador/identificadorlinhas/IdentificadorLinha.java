@@ -7,10 +7,8 @@ import java.util.List;
 public class IdentificadorLinha {
 
     private List<InformacaoLinha> informacoes;
-    private String txt;
     
     private List<InformacaoLinha> identificarLinhas(String texto) {
-        txt = texto;
         informacoes = new ArrayList<>();
         int linha = 1;
         int posicaoAnterior = 0;
