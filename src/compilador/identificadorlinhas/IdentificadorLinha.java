@@ -33,20 +33,10 @@ public class IdentificadorLinha {
     }
 
     public String getSimboloInvalido(int posicaoErro, String texto) {
-        String info = "";
-        
-        for (int i = posicaoErro; i < texto.length(); i++) {
-            String charPos = String.valueOf(texto.charAt(i));
-            if (charPos.equals("\n") || charPos.equals("\\s") || charPos.equals("\\t")) {
-                break;
-            }
-            info = info + charPos;
-        }
-        
-        char simbolo = info.charAt(0);
+        char simbolo = texto.charAt(posicaoErro);
         
         if ((simbolo == '&') || (simbolo == '|')) {
-            return String.valueOf(simbolo) + String.valueOf(info.charAt(1));
+            return String.valueOf(simbolo) + String.valueOf(texto.charAt(posicaoErro + 1));
         }
         
         return String.valueOf(simbolo);
