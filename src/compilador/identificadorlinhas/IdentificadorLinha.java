@@ -6,10 +6,8 @@ import java.util.List;
 
 public class IdentificadorLinha {
 
-    private List<InformacaoLinha> informacoes;
-    
     private List<InformacaoLinha> identificarLinhas(String texto) {
-        informacoes = new ArrayList<>();
+        List<InformacaoLinha> informacoes = new ArrayList<>();
         int linha = 1;
         int posicaoAnterior = 0;
         String[] textos = texto.split("\\n");
@@ -39,13 +37,19 @@ public class IdentificadorLinha {
         
         for (int i = posicaoErro; i < texto.length(); i++) {
             String charPos = String.valueOf(texto.charAt(i));
-            if (charPos.equals("\n") || charPos.equals("\\s")) {
+            if (charPos.equals("\n") || charPos.equals("\\s") || charPos.equals("\\t")) {
                 break;
             }
             info = info + charPos;
         }
         
-        return info;
+        char simbolo = info.charAt(0);
+        
+        if ((simbolo == '&') || (simbolo == '|')) {
+            return String.valueOf(simbolo) + String.valueOf(info.charAt(1));
+        }
+        
+        return String.valueOf(simbolo);
     }
 
 }
