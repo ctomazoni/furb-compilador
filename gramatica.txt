@@ -1,0 +1,30 @@
+// equipe: Cleber Tomazoni, Gabriel Deggau Schmidt e Nicolas José Cordeiro Viana
+
+<programa> ::= def <definicao_tipos> <definicao_constantes> <declaracao_variaveis> execute <lista_comandos>
+
+<definicao_tipos> ::= & | types <def_tipo> 
+<def_tipo> ::= identificador : <eh_tipo> | identificador : <eh_tipo><def_tipo>
+<eh_tipo> ::= <simples> | <composto>
+<simples> ::= int | float | str | bool
+<composto> ::= (<lista_campos>)
+<lista_campos> ::= <campo> | <campo><lista_campos>
+<campo> ::= identificador : <simples>
+
+<definicao_constantes> ::= & | consts <constantes>
+<constantes> ::= <lista_identificadores> = <valor> | <lista_identificadores> = <valor><constantes>
+<lista_identificadores> ::= identificador | identificador,<lista_identificadores>
+<valor> ::= const_inteira | const_real | const_caract | true | false
+
+<declaracao_variaveis> ::= & | var <variaveis>
+<variaveis> ::= <lista_identificadores> : <tipo> | <lista_identificadores> : <tipo><variaveis>
+<tipo> ::= <simples> | identificador
+
+<lista_comandos> ::= <comando> | <comando><lista_comandos>
+<comando> ::= <comando_atribuicao> | <comando_manipulacao> | <comando_entrada> | <comando_saida> | <comando_selecao> | <comando_repeticao>
+<comando_atribuicao> ::= identificador := <expressao> 
+<comando_manipulacao> ::= identificador set ( identificador, <expressao> )
+<comando_entrada> ::= input ( <lista_identificadores )
+<comando_saida> ::= print ( <lista_expressao> ) | println ( <lista_expressao> )
+<lista_expressao> ::= <expressao> | <expressao>,<lista_expressao>
+<comando_selecao> ::= ( <expressao> ) ifTrue : <lista_comandos> end | ( <expressao> ) ifFalse : <lista_comandos> end | ( <expressao> ) ifTrue : <lista_comandos> ifFalse : <lista_comandos> end
+<comando_repeticao> ::= ( <expressao> ) whileTrue: <lista_comandos> end | ( <expressao> ) whileFalse: <lista_comandos> end
