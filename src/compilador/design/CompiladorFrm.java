@@ -8,6 +8,10 @@ package compilador.design;
 
 import compilador.LexicalError;
 import compilador.Lexico;
+import compilador.SemanticError;
+import compilador.Semantico;
+import compilador.Sintatico;
+import compilador.SyntaticError;
 import compilador.Token;
 
 import compilador.identificadorlinhas.IdentificadorLinha;
@@ -295,19 +299,23 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     private void btnCompileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompileActionPerformed
         Lexico lexico = new Lexico();
-        lexico.setInput(new StringReader(editorTA.getText()));
+        Sintatico sintatico = new Sintatico();
+        Semantico semantico = new Semantico();
+        
+        lexico.setInput(editorTA.getText());
+        
         areaMensagemTA.setText("");
-        String format = "%1$-5s %2$-20s %3$-5s";
+//        String format = "%1$-5s %2$-20s %3$-5s";
         IdentificadorLinha id = new IdentificadorLinha();
         try {
-            Token t = null;
             if (!"".equals(editorTA.getText().trim())) {
-                areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
-                while ((t = lexico.nextToken()) != null) {
-                    InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
-                    String classe = identificarClasse(t.getId());
-                    areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
-                }
+//                areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
+//                while ((t = lexico.nextToken()) != null) {
+//                    InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
+//                    String classe = identificarClasse(t.getId());
+//                    areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
+//                }
+                sintatico.parse(lexico, semantico);
                 areaMensagemTA.append("Programa compilado com sucesso.");
             } else {
                 areaMensagemTA.append("Nenhum programa para compilar na área reservada para mensagens.");
@@ -324,8 +332,21 @@ public class CompiladorFrm extends javax.swing.JFrame {
             } catch (LinhaNaoEncontradaException ex) {
                 Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (LinhaNaoEncontradaException ex) {
-            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SyntaticError e) {
+            try {
+                InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
+                areaMensagemTA.setText("");
+                String encontrado = sintatico.getCurrentToken().getLexeme();
+                if (encontrado.equals("$")) {
+                    encontrado = "fim de programa";
+                }
+                String msgErro = "Encontrado " + encontrado + " " + e.getMessage();
+                areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + msgErro);
+            } catch (LinhaNaoEncontradaException ex) {
+                Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SemanticError e) {
+            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }//GEN-LAST:event_btnCompileActionPerformed
