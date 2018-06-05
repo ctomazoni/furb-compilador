@@ -22,7 +22,7 @@ public interface ScannerConstants
         481,
         482,
         483,
-        484,
+        483,
         484,
         547,
         548,
@@ -526,7 +526,7 @@ public interface ScannerConstants
         {57, 14},
         {61, 28},
         {61, 29},
-        {62, 30},
+        {61, 30},
         {48, 19},
         {49, 19},
         {50, 19},
@@ -869,16 +869,16 @@ public interface ScannerConstants
         {57, 33}
     };
 
-    int[] TOKEN_STATE = {-1,  0, 36, -1, -1, -1, 29, 30, 44, 42, 33, 43, 45,  3,  3, 28, 38, 31, 40,  2, -1,  0, 37,  5, -1,  0, 34, -1, 32, 39, 41,  2, 35,  4 };
+    int[] TOKEN_STATE = {-1,  0, 35, -1, -1, -1, 28, 29, 43, 41, 32, 42, 44,  3,  3, 27, 37, 30, 39,  2, -1,  0, 36,  5, -1,  0, 33, -1, 31, 40, 38,  2, 34,  4 };
 
     int[] SPECIAL_CASES_INDEXES =
-        { 0, 0, 0, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22 };
+        { 0, 0, 0, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21 };
 
     String[] SPECIAL_CASES_KEYS =
-        {  "bool", "consts", "def", "end", "endIf", "execute", "false", "float", "get", "ifFalse", "ifTrue", "input", "int", "print", "println", "set", "str", "true", "types", "var", "whileFalse", "whileTrue" };
+        {  "bool", "consts", "def", "end", "execute", "false", "float", "get", "ifFalse", "ifTrue", "input", "int", "print", "println", "set", "str", "true", "types", "var", "whileFalse", "whileTrue" };
 
     int[] SPECIAL_CASES_VALUES =
-        {  7, 8, 9, 10, 6, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 };
+        {  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
 
     String[] SCANNER_ERROR =
     {
@@ -906,7 +906,7 @@ public interface ScannerConstants
         "",
         "",
         "",
-        "Erro identificando const_caract",
+        "contante caractere inválida ou não finalizada",
         "",
         "",
         "Erro identificando const_real",
