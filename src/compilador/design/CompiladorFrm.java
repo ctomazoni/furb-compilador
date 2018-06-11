@@ -278,6 +278,14 @@ public class CompiladorFrm extends javax.swing.JFrame {
     private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
         try {
             realizarOpen();
+            /* Em java, "\n" é o terminador de uma linha num texto, enquanto no 
+            windows, o terminar é "\r\n". Então, quando um arquivo de texto windows, 
+            ".txt" por exemplo, é aberto no JTextArea editorTA, ele vem com o "\r" 
+            que acaba sendo visto como um símbolo inválido pelo programa. No gals, 
+            foi realizado um tratamento para ignorar os caracteres de formatação 
+            "\t", "\n" e "\s". No entanto, não existe nenhum tratamento para o "\r", 
+            então, para que o java não se perca, esse caractere é substituído. */
+            editorTA.setText(editorTA.getText().replace("\r",""));
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao abrir arquivo: " + ex.getMessage() + ". Contate os administradores do sistema e tente novamente.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
