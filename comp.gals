@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = Stream
+Input = String
 Parser = LL
 #RegularDefinitions
 mai : [A-Z]
@@ -31,7 +31,6 @@ const_real: (0|[1-9]({dig})*)","({dig})+
 const_caract: \"(([^\n\\\"])*|"\\"|"\"\")*\"
 
 //palavras reservadas
-ENDIF = identificador : "endIf"
 BOOL = identificador : "bool"
 CONSTS = identificador : "consts"
 DEF = identificador : "def"
