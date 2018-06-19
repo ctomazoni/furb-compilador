@@ -54,7 +54,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
      */
     private File arquivoAtual = null;
     private boolean isArquivoNovo = true;
-    
+   
     public CompiladorFrm() {
         initComponents();
         editorTA.setBorder(new NumberedBorder());
@@ -325,6 +325,8 @@ public class CompiladorFrm extends javax.swing.JFrame {
 //                }
                 sintatico.parse(lexico, semantico);
                 areaMensagemTA.append("Programa compilado com sucesso.");
+                areaMensagemTA.setText(semantico.getCodigo());
+//                compilar(semantico.getCodigo());
             } else {
                 areaMensagemTA.append("Nenhum programa para compilar na área reservada para mensagens.");
             }
@@ -361,6 +363,19 @@ public class CompiladorFrm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCompileActionPerformed
 
+    private void compilar(String texto) {
+        
+        
+//        try {
+//            Runtime.
+//                    getRuntime().
+//                    exec("cmd /c start \"C:\\Users\\Nicolas Viana\\Documents\\FURB\\5 semestre\\Compiladores-arquivos\\testes\\compila.bat\" \"C:\\Users\\Nicolas Viana\\Documents\\FURB\\5 semestre\\Compiladores-arquivos\\testes\\teste_a.txt\"",
+//                           null);
+//        } catch (IOException ex) {
+//            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }   
+    
     private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection selection = new StringSelection(editorTA.getSelectedText());
