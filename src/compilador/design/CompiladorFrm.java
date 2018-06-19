@@ -347,6 +347,8 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 String encontrado = sintatico.getCurrentToken().getLexeme();
                 if (encontrado.equals("$")) {
                     encontrado = "fim de programa";
+                } else {
+                    encontrado = identificarClasse(sintatico.getCurrentToken().getId());
                 }
                 String msgErro = "Encontrado " + encontrado + " " + e.getMessage();
                 areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + msgErro);
