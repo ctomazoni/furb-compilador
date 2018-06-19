@@ -126,7 +126,7 @@ WHILETRUE = identificador : "whileTrue"
 <fator_1>
 #Grammar
 
-<programa> ::= DEF <definicao_tipos> <definicao_constantes> <declaracao_variaveis> EXECUTE <lista_comandos>;
+<programa> ::= #15 DEF <definicao_tipos> <definicao_constantes> <declaracao_variaveis> EXECUTE <lista_comandos> #16;
 
 <definicao_tipos> ::= î | TYPES <def_tipo>;
 <def_tipo> ::= identificador ":" <eh_tipo> <def_tipo_1> ;
@@ -171,26 +171,26 @@ WHILETRUE = identificador : "whileTrue"
 
 
 <comando_entrada> ::= INPUT "(" <lista_identificadores> ")";
-<comando_saida> ::= PRINT "(" <lista_expressao> ")" | PRINTLN "(" <lista_expressao> ")";
-<lista_expressao> ::= <expressão> <lista_expressao_1>;
+<comando_saida> ::= PRINT "(" <lista_expressao> ")" | PRINTLN "(" <lista_expressao> ")" #17;
+<lista_expressao> ::= <expressão> #14 <lista_expressao_1>;
 <lista_expressao_1> ::= î | ","<lista_expressao>;
 
 
 <expressão> ::= <elemento><expressão1>;
-<expressão1> ::= "&&" <elemento><expressão1> | "||" <elemento><expressão1> | î;
-<elemento> ::= <relacional> | TRUE | FALSE | "!" <elemento>;
+<expressão1> ::= "&&" <elemento> #18 <expressão1> | "||" <elemento> #19 <expressão1> | î;
+<elemento> ::= <relacional> | TRUE #11 | FALSE #12 | "!" <elemento> #13;
 <relacional> ::= <aritmética> <relacional_1>;
-<relacional_1> ::= î | <operador_relacional> <aritmética>;
+<relacional_1> ::= î | <operador_relacional> #9 <aritmética> #10;
 
 <operador_relacional> ::= "=" | "!=" | "<" | "<=" | ">" | ">=";
 
 <aritmética> ::= <termo><aritimética_1>;
-<aritimética_1> ::= î | "+" <termo> <aritimética_1> | "-" <termo> <aritimética_1>;
+<aritimética_1> ::= î | "+" <termo> #1 <aritimética_1> | "-" <termo> #2 <aritimética_1>;
 
 <termo> ::= <fator><termo_1>;
-<termo_1> ::=  î | "*" <fator><termo_1> | "/" <fator><termo_1>;
+<termo_1> ::=  î | "*" <fator> #3 <termo_1> | "/" <fator> #4 <termo_1>;
 
-<fator> ::= identificador <fator_1> | const_inteira | const_real | const_caract | "(" <expressão> ")" |
- 	    "+" <fator> | "-" <fator>;
+<fator> ::= identificador <fator_1> | const_inteira #5 | const_real #6 | const_caract #20 | "(" <expressão> ")" |
+ 	    "+" <fator> #7 | "-" <fator> #8;
 
 <fator_1> ::=  î | GET "(" identificador ")";
