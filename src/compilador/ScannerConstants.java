@@ -906,7 +906,7 @@ public interface ScannerConstants
         "",
         "",
         "",
-        "contante caractere inválida ou não finalizada",
+        "contante str inválida ou não finalizada",
         "",
         "",
         "Erro identificando const_real",

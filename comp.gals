@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = String
+Input = Stream
 Parser = LL
 #RegularDefinitions
 mai : [A-Z]
@@ -142,17 +142,17 @@ WHILETRUE = identificador : "whileTrue"
 
 <definicao_constantes> ::= î | CONSTS <constantes>;
 
-<constantes> ::= <lista_identificadores> "=" <valor><constantes_1>;
+<constantes> ::= <lista_identificadores> "=" <valor>#32<constantes_1>;
 <constantes_1> ::= î | <constantes>;
 
-<lista_identificadores> ::= identificador <lista_identificadores_1>;
+<lista_identificadores> ::= identificador#22<lista_identificadores_1>;
 <lista_identificadores_1> ::= î | ","<lista_identificadores>;
 
 <valor> ::= const_inteira | const_real | const_caract | TRUE | FALSE;
 
 <declaracao_variaveis> ::= î | VAR <variaveis>;
 
-<variaveis> ::= <lista_identificadores> ":" <tipo><variaveis_1>;
+<variaveis> ::= <lista_identificadores> ":" <tipo><variaveis_1>#21#23;
 <variaveis_1> ::= î | <variaveis>;
 
 <tipo> ::= <simples> | identificador;
@@ -160,17 +160,17 @@ WHILETRUE = identificador : "whileTrue"
 <lista_comandos> ::= <comando><lista_comandos_1>;
 <lista_comandos_1> ::= î | <lista_comandos>;
 
-<comando> ::= identificador <comando_1> | <comando_entrada> | <comando_saida> | "(" <expressão> ")" <comando_2>;
-<comando_1> ::= ":=" <expressão> | SET "(" identificador"," <expressão> ")";
-<comando_2> ::=  IFTRUE ":" <lista_comandos><comando_3> | 
-	         IFFALSE ":" <lista_comandos> END | 
-		WHILETRUE":" <lista_comandos> END |
-		WHILEFALSE":" <lista_comandos> END;
+<comando> ::= identificador <comando_1> | <comando_entrada> | <comando_saida> | #27"(" <expressão> ")" <comando_2>;
+<comando_1> ::= #22":=" <expressão>#26 | SET "(" identificador"," <expressão> ")";
+<comando_2> ::=  IFTRUE#28":" <lista_comandos><comando_3> | 
+	         IFFALSE#28":" <lista_comandos> END#29| 
+		WHILETRUE#28":" <lista_comandos> END#31|
+		WHILEFALSE#28":" <lista_comandos> END#31;
 
-<comando_3> ::=  END | IFFALSE ":" <lista_comandos> END;
+<comando_3> ::=  END#29| #30IFFALSE ":" <lista_comandos> END#29;
 
 
-<comando_entrada> ::= INPUT "(" <lista_identificadores> ")";
+<comando_entrada> ::= INPUT "(" <lista_identificadores>#24")";
 <comando_saida> ::= PRINT "(" <lista_expressao> ")" | PRINTLN "(" <lista_expressao> ")" #17;
 <lista_expressao> ::= <expressão> #14 <lista_expressao_1>;
 <lista_expressao_1> ::= î | ","<lista_expressao>;
@@ -190,7 +190,7 @@ WHILETRUE = identificador : "whileTrue"
 <termo> ::= <fator><termo_1>;
 <termo_1> ::=  î | "*" <fator> #3 <termo_1> | "/" <fator> #4 <termo_1>;
 
-<fator> ::= identificador <fator_1> | const_inteira #5 | const_real #6 | const_caract #20 | "(" <expressão> ")" |
+<fator> ::= identificador#25<fator_1> | const_inteira #5 | const_real #6 | const_caract #20 | "(" <expressão> ")" |
  	    "+" <fator> #7 | "-" <fator> #8;
 
 <fator_1> ::=  î | GET "(" identificador ")";

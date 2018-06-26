@@ -358,7 +358,13 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (SemanticError e) {
-            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, e);
+            try {
+                InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
+                areaMensagemTA.setText("");
+                areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + e.getMessage());
+            } catch (LinhaNaoEncontradaException ex) {
+                Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_btnCompileActionPerformed

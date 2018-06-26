@@ -1,5 +1,9 @@
 package compilador;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 public class Semantico implements Constants {
@@ -10,6 +14,12 @@ public class Semantico implements Constants {
     private static final String QUEBRA_LINHA = "\n";
     private static final String TAB = "\t";
 
+    private Set<String> listaIdentificadores = new HashSet<>();
+    // a chave é o identificador, e o valor é a tabela de simbolos
+     private Map<String, InformacaoIdentificador> tabelaSimbolos = new HashMap<>();
+     private Stack<String> pilhaRotulos = new Stack<>();
+     private int numeroRotulos = 0;
+     
     public void executeAction(int action, Token token) throws SemanticError {
 
         switch (action) {
@@ -240,4 +250,8 @@ public class Semantico implements Constants {
         return codigo.toString();
     }
     
+    private String getProximoRotulo() {
+        numeroRotulos++;
+        return "label" + numeroRotulos;
+    }
 }
