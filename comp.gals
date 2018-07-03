@@ -152,7 +152,7 @@ WHILETRUE = identificador : "whileTrue"
 
 <declaracao_variaveis> ::= î | VAR <variaveis>;
 
-<variaveis> ::= <lista_identificadores> ":" <tipo><variaveis_1>#21#23;
+<variaveis> ::= <lista_identificadores> ":" <tipo>#21#23<variaveis_1>;
 <variaveis_1> ::= î | <variaveis>;
 
 <tipo> ::= <simples> | identificador;

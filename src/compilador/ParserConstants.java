@@ -2,7 +2,7 @@ package compilador;
 
 public interface ParserConstants
 {
-    int START_SYMBOL = 45;
+     int START_SYMBOL = 45;
 
     int FIRST_NON_TERMINAL    = 45;
     int FIRST_SEMANTIC_ACTION = 87;
@@ -87,7 +87,7 @@ public interface ParserConstants
         {  11 },
         {   0 },
         {  24,  62 },
-        {  58,  27,  64,  63, 108, 110 },
+        {  58,  27,  64, 108, 110,  63 },
         {   0 },
         {  62 },
         {  50 },

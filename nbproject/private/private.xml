@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/Sintatico.java</file>
             <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/ScannerConstants.java</file>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/Tipo.java</file>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/ParserConstants.java</file>
             <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/design/CompiladorFrm.java</file>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/identificadorlinhas/IdentificadorLinha.java</file>
+            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/ParserConstants.java</file>
             <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/Constants.java</file>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/SyntaticError.java</file>
+            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/ClasseIdentificador.java</file>
+            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/InformacaoIdentificador.java</file>
             <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/Semantico.java</file>
-            <file>file:/C:/Users/Nicolas%20Viana/Documents/FURB/5%20semestre/Compiladores/src/compilador/Token.java</file>
         </group>
     </open-files>
 </project-private>

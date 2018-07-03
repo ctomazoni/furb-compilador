@@ -16,10 +16,10 @@ public class Semantico implements Constants {
 
     private Set<String> listaIdentificadores = new HashSet<>();
     // a chave é o identificador, e o valor é a tabela de simbolos
-     private Map<String, InformacaoIdentificador> tabelaSimbolos = new HashMap<>();
-     private Stack<String> pilhaRotulos = new Stack<>();
-     private int numeroRotulos = 0;
-     
+    private Map<String, InformacaoIdentificador> tabelaSimbolos = new HashMap<>();
+    private Stack<String> pilhaRotulos = new Stack<>();
+    private int numeroRotulos = 0;
+
     public void executeAction(int action, Token token) throws SemanticError {
 
         switch (action) {
@@ -83,6 +83,18 @@ public class Semantico implements Constants {
             case 20:
                 executarAcaoSemantica20(token);
                 break;
+            case 21:
+                executarAcaoSemantica21(token);
+                break;
+            case 22:
+                executarAcaoSemantica22(token);
+                break;
+            case 23:
+                executarAcaoSemantica23(token);
+                break;
+            case 24:
+                executarAcaoSemantica24(token);
+                break;
         }
 
     }
@@ -90,47 +102,47 @@ public class Semantico implements Constants {
     private void executarAcaoSemantica1() {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if(tipo1 == Tipo.float64 || tipo2 == Tipo.float64){
+        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
             pilhaTipos.push(Tipo.float64);
-        }else{
+        } else {
             pilhaTipos.push(Tipo.int64);
         }
         codigo.append(TAB).append("add").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica2() {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if(tipo1 == Tipo.float64 || tipo2 == Tipo.float64){
+        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
             pilhaTipos.push(Tipo.float64);
-        }else{
+        } else {
             pilhaTipos.push(Tipo.int64);
         }
         codigo.append(TAB).append("sub").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica3() {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if(tipo1 == Tipo.float64 || tipo2 == Tipo.float64){
+        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
             pilhaTipos.push(Tipo.float64);
-        }else{
+        } else {
             pilhaTipos.push(Tipo.int64);
         }
         codigo.append(TAB).append("mul").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica4() throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if(tipo1 == tipo2){
+        if (tipo1 == tipo2) {
             pilhaTipos.push(tipo1);
-        }else{
+        } else {
             throw new SemanticError("SemanticError#4");
         }
         codigo.append(TAB).append("div").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica5(Token token) {
         pilhaTipos.push(Tipo.int64);
         codigo.append(TAB).append("ldc.i8").append(token.getLexeme()).append(QUEBRA_LINHA);
@@ -151,7 +163,7 @@ public class Semantico implements Constants {
             throw new SemanticError("SemanticError#7");
         }
     }
-    
+
     private void executarAcaoSemantica8(Token token) throws SemanticError {
         Tipo tipo = pilhaTipos.pop();
         if (tipo == Tipo.float64
@@ -166,11 +178,11 @@ public class Semantico implements Constants {
         }
         codigo.append(TAB).append("mul").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica9(Token token) {
         operador = token.getLexeme();
     }
-    
+
     private void executarAcaoSemantica10(Token token) throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
@@ -188,23 +200,23 @@ public class Semantico implements Constants {
                 codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
         }
     }
-    
+
     private void executarAcaoSemantica11(Token token) {
         pilhaTipos.push(Tipo.bool);
         codigo.append(TAB).append("ldc.i4.1").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica12(Token token) {
         pilhaTipos.push(Tipo.bool);
         codigo.append(TAB).append("ldc.i4.0").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica13(Token token) {
         pilhaTipos.push(Tipo.int64);
         codigo.append("ldc.i8").append(token.getLexeme()).append(QUEBRA_LINHA);
         codigo.append("conv.r8").append(QUEBRA_LINHA);
     }
-    
+
     private void executarAcaoSemantica14() {
         Tipo tipo = pilhaTipos.pop();
         if (tipo == Tipo.int64) {
@@ -246,12 +258,88 @@ public class Semantico implements Constants {
         codigo.append(TAB).append("ldstr").append(token.getLexeme()).append(QUEBRA_LINHA);
     }
 
+    // reconhece o tipo da expressão
+    private void executarAcaoSemantica21(Token token) {
+        String lexema = token.getLexeme();
+        Tipo tipo = getTipoPorLexema(lexema);
+        pilhaTipos.push(tipo);
+    }
+
+    // reconhece o identificador para uso posterior para atribuir valores
+    private void executarAcaoSemantica22(Token token) {
+        listaIdentificadores.add(token.getLexeme());
+    }
+
+    // declara os identificadores, e adiciona na tabela de simbolos
+    private void executarAcaoSemantica23(Token token) throws SemanticError {
+        Tipo tipo = pilhaTipos.pop();
+        for (String id : listaIdentificadores) {
+
+            if (tabelaSimbolos.containsKey(id)) {
+                throw new SemanticError("identificador já declarado", token.getPosition());
+            }
+
+            codigo.append(TAB).append(".locals (").append(tipo.name()).append(" ").append(id).append(")").append(QUEBRA_LINHA);
+            tabelaSimbolos.put(id, new InformacaoIdentificador(id, ClasseIdentificador.VARIAVEL, tipo, null));
+        }
+        listaIdentificadores.clear();
+    }
+
+    // comando de entrada input
+    private void executarAcaoSemantica24(Token token) throws SemanticError {
+        for (String id : listaIdentificadores) {
+            if (!tabelaSimbolos.containsKey(id)) {
+                throw new SemanticError("identificador não declarado", token.getPosition());
+            }
+            InformacaoIdentificador infos = tabelaSimbolos.get(id);
+            String classe = "";
+            switch (infos.tipo) {
+                case bool:
+                    classe = "Boolean";
+                    break;
+                case float64:
+                    classe = "Double";
+                    break;
+                case int64:
+                    classe = "Int64";
+                    break;
+                case string:
+                    classe = "String";
+                    break;
+            }
+            codigo.append(TAB).append("call string [mscorlib]System.Console::ReadLine()").append(QUEBRA_LINHA);
+            if (infos.tipo != Tipo.string) {
+                codigo.append(TAB).append("call ").append(infos.tipo.name()) //
+                      .append("[mscorlib]System.").append(classe) //
+                      .append("::Parse(string)").append(QUEBRA_LINHA);
+            }
+            codigo.append(TAB).append("stloc ").append(id).append(QUEBRA_LINHA);
+        }
+        listaIdentificadores.clear();
+    }
+
     public String getCodigo() {
         return codigo.toString();
     }
-    
+
     private String getProximoRotulo() {
         numeroRotulos++;
         return "label" + numeroRotulos;
     }
+
+    private Tipo getTipoPorLexema(String lexema) {
+        switch (lexema.toUpperCase()) {
+            case "STR":
+                return Tipo.string;
+            case "INT":
+                return Tipo.int64;
+            case "FLOAT":
+                return Tipo.float64;
+            case "BOOL":
+                return Tipo.float64;
+            default:
+                throw new RuntimeException("Tipo não definido");
+        }
+    }
+
 }

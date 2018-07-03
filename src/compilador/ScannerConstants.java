@@ -2,7 +2,7 @@ package compilador;
 
 public interface ScannerConstants
 {
-    int[] SCANNER_TABLE_INDEXES = 
+     int[] SCANNER_TABLE_INDEXES = 
     {
         0,
         81,
