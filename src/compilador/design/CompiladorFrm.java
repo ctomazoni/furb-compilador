@@ -52,7 +52,9 @@ public class CompiladorFrm extends javax.swing.JFrame {
     /**
      * Creates new form CompiladorFrm
      */
+    private final boolean EXIBE_TOKENS = false;
     private File arquivoAtual = null;
+    private File arquivoGerado = null;
     private boolean isArquivoNovo = true;
    
     public CompiladorFrm() {
@@ -312,28 +314,30 @@ public class CompiladorFrm extends javax.swing.JFrame {
         
         lexico.setInput(editorTA.getText());
         
-        areaMensagemTA.setText("");
-//        String format = "%1$-5s %2$-20s %3$-5s";
+        limparAreaMensagem();
         IdentificadorLinha id = new IdentificadorLinha();
         try {
             if (!"".equals(editorTA.getText().trim())) {
-//                areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
-//                while ((t = lexico.nextToken()) != null) {
-//                    InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition()); 
-//                    String classe = identificarClasse(t.getId());
-//                    areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
-//                }
+                if (EXIBE_TOKENS) {
+                    Token t;
+                    String format = "%1$-5s %2$-20s %3$-5s";
+                    areaMensagemTA.append(String.format(format, "linha","classe","lexema")+"\n");
+                    while ((t = lexico.nextToken()) != null) {
+                        InformacaoLinha linha = id.getLinha(editorTA.getText(), t.getPosition());
+                        String classe = identificarClasse(t.getId());
+                        areaMensagemTA.append(String.format(format, linha.getLinha(), classe, t.getLexeme())+"\n");
+                    }
+                }
                 sintatico.parse(lexico, semantico);
                 areaMensagemTA.append("Programa compilado com sucesso.");
-                areaMensagemTA.setText(semantico.getCodigo());
-//                compilar(semantico.getCodigo());
+                compilar(semantico.getCodigo());
             } else {
                 areaMensagemTA.append("Nenhum programa para compilar na área reservada para mensagens.");
             }
         } catch (LexicalError e) {
             try {
                 InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
-                areaMensagemTA.setText("");
+                limparAreaMensagem();
                 String msgErro = e.getMessage();
                 if ("símbolo inválido".equals(msgErro)) {
                     msgErro = id.getSimboloInvalido(e.getPosition(), editorTA.getText()) + " " + msgErro;
@@ -345,7 +349,7 @@ public class CompiladorFrm extends javax.swing.JFrame {
         } catch (SyntaticError e) {
             try {
                 InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
-                areaMensagemTA.setText("");
+                limparAreaMensagem();
                 String encontrado = sintatico.getCurrentToken().getLexeme();
                 if (encontrado.equals("$")) {
                     encontrado = "fim de programa";
@@ -360,27 +364,43 @@ public class CompiladorFrm extends javax.swing.JFrame {
         } catch (SemanticError e) {
             try {
                 InformacaoLinha linha = id.getLinha(editorTA.getText(), e.getPosition());
-                areaMensagemTA.setText("");
+                limparAreaMensagem();
                 areaMensagemTA.append("Erro na linha " + linha.getLinha() + " - " + e.getMessage());
             } catch (LinhaNaoEncontradaException ex) {
                 Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (LinhaNaoEncontradaException ex) {
+            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnCompileActionPerformed
 
+    private void limparAreaMensagem() {
+        areaMensagemTA.setText("");
+    }
+    
     private void compilar(String texto) {
-        
-        
-//        try {
-//            Runtime.
-//                    getRuntime().
-//                    exec("cmd /c start \"C:\\Users\\Nicolas Viana\\Documents\\FURB\\5 semestre\\Compiladores-arquivos\\testes\\compila.bat\" \"C:\\Users\\Nicolas Viana\\Documents\\FURB\\5 semestre\\Compiladores-arquivos\\testes\\teste_a.txt\"",
-//                           null);
-//        } catch (IOException ex) {
-//            Logger.getLogger(CompiladorFrm.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }   
+        try {
+            if (realizarSalvar()) {
+                salvarCodigoGerado(texto);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar arquivo: " + ex.getMessage() + ". Contate os administradores do sistema e tente novamente.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void salvarCodigoGerado(String texto) throws IOException {
+        String nomeArquivo = arquivoAtual.getAbsolutePath().replace(".txt", "") + ".il";
+        if (arquivoGerado == null) {
+            escreverArquivo(nomeArquivo, texto);
+            arquivoGerado = new File(nomeArquivo);
+        } else {
+            escreverArquivo(arquivoGerado.getAbsolutePath(), texto);
+            arquivoGerado = new File(arquivoGerado.getAbsolutePath());
+        }
+        areaMensagemTA.append("O código gerado foi salvo em: " + arquivoGerado.getAbsoluteFile());
+    }
     
     private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopyActionPerformed
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -478,10 +498,11 @@ public class CompiladorFrm extends javax.swing.JFrame {
     
     private void realizarNovo() {
         editorTA.setText("");
-        areaMensagemTA.setText("");
+        limparAreaMensagem();
         barraStatus.setText("");
         isArquivoNovo = true;
         arquivoAtual = null;
+        arquivoGerado = null;
     }
     
     private void realizarOpen() throws IOException {
@@ -496,14 +517,15 @@ public class CompiladorFrm extends javax.swing.JFrame {
             String conteudo = Files.readAllLines(Paths.get(absolutePath)).stream().collect(Collectors.joining("\r\n"));
             
             editorTA.setText(conteudo);
-            areaMensagemTA.setText("");
+            limparAreaMensagem();
             barraStatus.setText(absolutePath);
             arquivoAtual = arquivo;
+            arquivoGerado = null;
             isArquivoNovo = false;
         }
     }
     
-    private void realizarSalvar() throws IOException {
+    private boolean realizarSalvar() throws IOException {
         String texto = editorTA.getText();
         
         if (isArquivoNovo) {
@@ -516,21 +538,27 @@ public class CompiladorFrm extends javax.swing.JFrame {
                 
                 escreverArquivo(nomeArquivo, texto);
                 
-                areaMensagemTA.setText("");
+                limparAreaMensagem();
                 barraStatus.setText(nomeArquivo);
                 
                 isArquivoNovo = false;
                 arquivoAtual = new File(nomeArquivo);
                 
                 JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
+                
+                return true;
+            } else {
+                return false;
             }
    
         } else {
             escreverArquivo(arquivoAtual.getAbsolutePath(), texto);
-            areaMensagemTA.setText("");
+            limparAreaMensagem();
             arquivoAtual = new File(arquivoAtual.getAbsolutePath());
             
             JOptionPane.showMessageDialog(this, "Arquivo salvo com sucesso", "Arquivo salvo", JOptionPane.INFORMATION_MESSAGE);
+            
+            return true;
         }
     }
 
