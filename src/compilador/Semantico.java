@@ -382,7 +382,8 @@ public class Semantico implements Constants {
     }
 
     private void executarAcaoSemantica26(Token token) throws SemanticError {
-        String id = (String) listaIdentificadores.toArray()[0];
+        String id = (String) listaIdentificadores.toArray()[listaIdentificadores.size() - 1];
+        listaIdentificadores.remove(id);
         if (!tabelaSimbolos.containsKey(id)) {
             throw new SemanticError("identificador não declarado", token.getPosition());
         }
