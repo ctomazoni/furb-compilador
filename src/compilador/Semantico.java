@@ -240,10 +240,15 @@ public class Semantico implements Constants {
         codigo.append(TAB).append("ldc.i4.0").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica13(Token token) {
-        pilhaTipos.push(Tipo.int64);
-        codigo.append("ldc.i8 ").append(token.getLexeme()).append(QUEBRA_LINHA);
-        codigo.append("conv.r8").append(QUEBRA_LINHA);
+    private void executarAcaoSemantica13(Token token) throws SemanticError {
+        Tipo tipo = pilhaTipos.pop();
+        if (Tipo.bool.equals(tipo)) {
+            pilhaTipos.push(Tipo.bool);
+        } else {
+            throw new SemanticError("tipos incompatíveis em operação lógica binária");
+        }
+        codigo.append(TAB).append("ldc.i4.1").append(QUEBRA_LINHA);
+        codigo.append(TAB).append("xor").append(QUEBRA_LINHA);
     }
 
     private void executarAcaoSemantica14() {
@@ -362,7 +367,21 @@ public class Semantico implements Constants {
                 codigo.append(TAB).append("conv.r8").append(QUEBRA_LINHA);
             }
         } else if (ClasseIdentificador.CONSTANTE.equals(infos.classe)) {
-            codigo.append(TAB).append("ldloc ").append(infos.valor).append(QUEBRA_LINHA);
+            switch (infos.tipo) {
+                case int64:
+                    codigo.append(TAB).append("ldloc ").append(infos.valor).append(QUEBRA_LINHA);
+                    break;
+                case float64:
+                    codigo.append(TAB).append("ldloc ").append(infos.valor).append(QUEBRA_LINHA);
+                    break;
+                case string:
+                    codigo.append(TAB).append("ldloc \"").append(infos.valor).append("\"").append(QUEBRA_LINHA);
+                    break;
+                case bool:
+                    codigo.append(TAB).append("ldc.i4.").append(Boolean.valueOf(infos.valor.toString()) ? 1 : 0).append(QUEBRA_LINHA);
+                    break;
+            }
+            
         }
     }
 
@@ -399,17 +418,20 @@ public class Semantico implements Constants {
         String rotulo = this.getProximoRotulo();
         switch (verificacao.toUpperCase()) {
             case "IFFALSE":
-                codigo.append(TAB).append("brfalse ").append(rotulo).append(QUEBRA_LINHA);
+                pilhaRotulos.pop();
+                codigo.append(TAB).append("brtrue ").append(rotulo).append(QUEBRA_LINHA);
                 break;
             case "IFTRUE":
+                pilhaRotulos.pop();
                 codigo.append(TAB).append("brfalse ").append(rotulo).append(QUEBRA_LINHA);
                 break;
             case "WHILETRUE":
                 codigo.append(TAB).append("brfalse ").append(rotulo).append(QUEBRA_LINHA);
                 break;
             case "WHILEFALSE":
-                codigo.append(TAB).append("brfalse ").append(rotulo).append(QUEBRA_LINHA);
+                codigo.append(TAB).append("brtrue ").append(rotulo).append(QUEBRA_LINHA);
                 break;
+                
             default:
                 throw new RuntimeException("Tipo de verificação não definido: " + verificacao);
         }
@@ -429,14 +451,14 @@ public class Semantico implements Constants {
 
     private void executarAcaoSemantica31(Token token) {
         String ultimo = pilhaRotulos.pop();
-        String antepenultimo = pilhaRotulos.pop();
+        String penultimo = pilhaRotulos.pop();
         
-        codigo.append(TAB).append("br ").append(antepenultimo).append(QUEBRA_LINHA);
+        codigo.append(TAB).append("br ").append(penultimo).append(QUEBRA_LINHA);
         codigo.append(TAB).append(ultimo).append(":").append(QUEBRA_LINHA);
     }
 
     private void executarAcaoSemantica32(Token token) throws SemanticError {
-        Tipo tipo = pilhaTipos.pop();
+        Tipo tipo = getTipoPorClasse(token.getId());
         for (String id : listaIdentificadores) {
 
             if (tabelaSimbolos.containsKey(id)) {
@@ -466,7 +488,7 @@ public class Semantico implements Constants {
             case "FLOAT":
                 return Tipo.float64;
             case "BOOL":
-                return Tipo.float64;
+                return Tipo.bool;
             default:
                 throw new RuntimeException("Tipo não definido");
         }
@@ -481,4 +503,22 @@ public class Semantico implements Constants {
                 || (Tipo.bool.equals(tipo1) && tipo2 == null) && "!".equals(operador1);
     }
 
+    private Tipo getTipoPorClasse(int idToken) {
+        switch (idToken) {
+            case 3:
+                return Tipo.int64;
+            case 4:
+                return Tipo.float64;
+            case 5:
+                return Tipo.string;
+            case 22:
+            case 11:
+                return Tipo.bool;
+            default:
+                break;
+        }
+        
+        return null;
+    }
+    
 }

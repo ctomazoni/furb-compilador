@@ -43,7 +43,7 @@ IFFALSE = identificador : "ifFalse"
 IFTRUE = identificador : "ifTrue"
 INPUT = identificador : "input"
 INT = identificador : "int"
-PRINT = identificador : "print"
+PRINT = identificador : "print"'
 PRINTLN = identificador : "println"
 SET = identificador : "set"
 STR = identificador : "str"
@@ -148,7 +148,7 @@ WHILETRUE = identificador : "whileTrue"
 <lista_identificadores> ::= identificador#22<lista_identificadores_1>;
 <lista_identificadores_1> ::= î | ","<lista_identificadores>;
 
-<valor> ::= const_inteira | const_real | const_caract | TRUE | FALSE;
+<valor> ::= const_inteira | const_real | const_caract | TRUE | FALSE ;
 
 <declaracao_variaveis> ::= î | VAR <variaveis>;
 
