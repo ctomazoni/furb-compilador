@@ -885,7 +885,7 @@ public interface ScannerConstants
         "símbolo inválido",
         "",
         "",
-        "constante caractere inválida ou não finalizada",
+        "constante str inválida ou não finalizada",
         "comentário de bloco inválido ou não finalizado",
         "símbolo inválido",
         "",

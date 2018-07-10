@@ -26,13 +26,13 @@ public class Semantico implements Constants {
 
         switch (action) {
             case 1:
-                executarAcaoSemantica1();
+                executarAcaoSemantica1(token);
                 break;
             case 2:
-                executarAcaoSemantica2();
+                executarAcaoSemantica2(token);
                 break;
             case 3:
-                executarAcaoSemantica3();
+                executarAcaoSemantica3(token);
                 break;
             case 4:
                 executarAcaoSemantica4(token);
@@ -77,10 +77,10 @@ public class Semantico implements Constants {
                 executarAcaoSemantica17();
                 break;
             case 18:
-                executarAcaoSemantica18();
+                executarAcaoSemantica18(token);
                 break;
             case 19:
-                executarAcaoSemantica19();
+                executarAcaoSemantica19(token);
                 break;
             case 20:
                 executarAcaoSemantica20(token);
@@ -124,35 +124,48 @@ public class Semantico implements Constants {
         }
     }
 
-    private void executarAcaoSemantica1() {
+    private void executarAcaoSemantica1(Token token) throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
-            pilhaTipos.push(Tipo.float64);
+
+        if ((tipo1 == Tipo.float64 || tipo1 == Tipo.int64) && (tipo2 == Tipo.float64 || tipo2 == Tipo.int64)) {
+            if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
+                pilhaTipos.push(Tipo.float64);
+            } else {
+                pilhaTipos.push(Tipo.int64);
+            }
         } else {
-            pilhaTipos.push(Tipo.int64);
+            throw new SemanticError("tipos incompatíveis em operação aritimética binária", token.getPosition());
         }
         codigo.append(TAB).append("add").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica2() {
+    private void executarAcaoSemantica2(Token token) throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
-            pilhaTipos.push(Tipo.float64);
+        if ((tipo1 == Tipo.float64 || tipo1 == Tipo.int64) && (tipo2 == Tipo.float64 || tipo2 == Tipo.int64)) {
+            if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
+                pilhaTipos.push(Tipo.float64);
+            } else {
+                pilhaTipos.push(Tipo.int64);
+            }
         } else {
-            pilhaTipos.push(Tipo.int64);
+            throw new SemanticError("tipos incompatíveis em operação aritimética binária", token.getPosition());
         }
         codigo.append(TAB).append("sub").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica3() {
+    private void executarAcaoSemantica3(Token token) throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
-            pilhaTipos.push(Tipo.float64);
+        if ((tipo1 == Tipo.float64 || tipo1 == Tipo.int64) && (tipo2 == Tipo.float64 || tipo2 == Tipo.int64)) {
+            if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
+                pilhaTipos.push(Tipo.float64);
+            } else {
+                pilhaTipos.push(Tipo.int64);
+            }
         } else {
-            pilhaTipos.push(Tipo.int64);
+            throw new SemanticError("tipos incompatíveis em operação aritimética binária", token.getPosition());
         }
         codigo.append(TAB).append("mul").append(QUEBRA_LINHA);
     }
@@ -160,12 +173,17 @@ public class Semantico implements Constants {
     private void executarAcaoSemantica4(Token token) throws SemanticError {
         Tipo tipo1 = pilhaTipos.pop();
         Tipo tipo2 = pilhaTipos.pop();
-        if (tipo1 == tipo2) {
-            pilhaTipos.push(tipo1);
+        if ((tipo1 == Tipo.float64 || tipo1 == Tipo.int64) && (tipo2 == Tipo.float64 || tipo2 == Tipo.int64)) {
+            if (tipo1 == Tipo.float64 || tipo2 == Tipo.float64) {
+                pilhaTipos.push(Tipo.float64);
+            } else {
+                pilhaTipos.push(Tipo.int64);
+            }
         } else {
-            throw new SemanticError("SemanticError#4", token.getPosition());
+            throw new SemanticError("tipos incompatíveis em operação aritimética binária", token.getPosition());
         }
         codigo.append(TAB).append("div").append(QUEBRA_LINHA);
+
     }
 
     private void executarAcaoSemantica5(Token token) {
@@ -185,7 +203,7 @@ public class Semantico implements Constants {
                 || tipo == Tipo.int64) {
             pilhaTipos.push(tipo);
         } else {
-            throw new SemanticError("SemanticError#7", token.getPosition());
+            throw new SemanticError("tipos incompatíveis em operação aritimética unária", token.getPosition());
         }
     }
 
@@ -195,7 +213,7 @@ public class Semantico implements Constants {
                 || tipo == Tipo.int64) {
             pilhaTipos.push(tipo);
         } else {
-            throw new SemanticError("SemanticError#8", token.getPosition());
+            throw new SemanticError("tipos incompatíveis em operação aritmética unária", token.getPosition());
         }
         codigo.append(TAB).append("ldc.i8 -1").append(QUEBRA_LINHA);
         if (tipo == Tipo.int64) {
@@ -260,7 +278,7 @@ public class Semantico implements Constants {
         if (Tipo.bool.equals(tipo)) {
             pilhaTipos.push(Tipo.bool);
         } else {
-            throw new SemanticError("tipos incompatíveis em operação lógica binária");
+            throw new SemanticError("tipos incompatíveis em operação lógica unária", token.getPosition());
         }
         codigo.append(TAB).append("ldc.i4.1").append(QUEBRA_LINHA);
         codigo.append(TAB).append("xor").append(QUEBRA_LINHA);
@@ -294,11 +312,27 @@ public class Semantico implements Constants {
         codigo.append(TAB).append("call void [mscorlib]System.Console::Write(string)").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica18() {
+    private void executarAcaoSemantica18(Token token) throws SemanticError {
+        Tipo tipo1 = pilhaTipos.pop();
+        Tipo tipo2 = pilhaTipos.pop();
+        if (Tipo.bool.equals(tipo1) && Tipo.bool.equals(tipo2)) {
+            pilhaTipos.push(Tipo.bool);
+            pilhaTipos.push(Tipo.bool);
+        } else {
+            throw new SemanticError("tipos incompatíveis em operação lógica binária", token.getPosition());
+        }
         codigo.append(TAB).append("and").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica19() {
+    private void executarAcaoSemantica19(Token token) throws SemanticError {
+        Tipo tipo1 = pilhaTipos.pop();
+        Tipo tipo2 = pilhaTipos.pop();
+        if (Tipo.bool.equals(tipo1) && Tipo.bool.equals(tipo2)) {
+            pilhaTipos.push(Tipo.bool);
+            pilhaTipos.push(Tipo.bool);
+        } else {
+            throw new SemanticError("tipos incompatíveis em operação lógica binária", token.getPosition());
+        }
         codigo.append(TAB).append("or").append(QUEBRA_LINHA);
     }
 
@@ -308,9 +342,8 @@ public class Semantico implements Constants {
     }
 
     // reconhece o tipo da expressão
-    private void executarAcaoSemantica21(Token token) {
-        String lexema = token.getLexeme();
-        Tipo tipo = getTipoPorLexema(lexema);
+    private void executarAcaoSemantica21(Token token) throws SemanticError {
+        Tipo tipo = getTipoPorLexema(token);
         pilhaTipos.push(tipo);
     }
 
@@ -325,7 +358,7 @@ public class Semantico implements Constants {
         for (String id : listaIdentificadores) {
 
             if (tabelaSimbolos.containsKey(id)) {
-                throw new SemanticError("identificador já declarado", token.getPosition());
+                throw new SemanticError(id + " já declarado", token.getPosition());
             }
 
             codigo.append(TAB).append(".locals (").append(tipo.name()).append(" ").append(id).append(")").append(QUEBRA_LINHA);
@@ -338,7 +371,7 @@ public class Semantico implements Constants {
     private void executarAcaoSemantica24(Token token) throws SemanticError {
         for (String id : listaIdentificadores) {
             if (!tabelaSimbolos.containsKey(id)) {
-                throw new SemanticError("identificador não declarado", token.getPosition());
+                throw new SemanticError(id + " não declarado", token.getPosition());
             }
             InformacaoIdentificador infos = tabelaSimbolos.get(id);
             String classe = "";
@@ -370,7 +403,7 @@ public class Semantico implements Constants {
     private void executarAcaoSemantica25(Token token) throws SemanticError {
         String lexeme = token.getLexeme();
         if (!tabelaSimbolos.containsKey(lexeme)) {
-            throw new SemanticError("identificador não declarado", token.getPosition());
+            throw new SemanticError(lexeme + " não declarado", token.getPosition());
         }
 
         InformacaoIdentificador infos = tabelaSimbolos.get(lexeme);
@@ -384,19 +417,19 @@ public class Semantico implements Constants {
         } else if (ClasseIdentificador.CONSTANTE.equals(infos.classe)) {
             switch (infos.tipo) {
                 case int64:
-                    codigo.append(TAB).append("ldloc ").append(infos.valor).append(QUEBRA_LINHA);
+                    codigo.append(TAB).append("ldc.i8 ").append(infos.valor).append(QUEBRA_LINHA);
                     break;
                 case float64:
-                    codigo.append(TAB).append("ldloc ").append(infos.valor).append(QUEBRA_LINHA);
+                    codigo.append(TAB).append("ldc.r8 ").append(infos.valor.toString().replaceAll(",", ".")).append(QUEBRA_LINHA);
                     break;
                 case string:
-                    codigo.append(TAB).append("ldloc \"").append(infos.valor).append("\"").append(QUEBRA_LINHA);
+                    codigo.append(TAB).append("ldstr ").append(infos.valor).append(QUEBRA_LINHA);
                     break;
                 case bool:
                     codigo.append(TAB).append("ldc.i4.").append(Boolean.valueOf(infos.valor.toString()) ? 1 : 0).append(QUEBRA_LINHA);
                     break;
             }
-            
+
         }
     }
 
@@ -404,7 +437,7 @@ public class Semantico implements Constants {
         String id = (String) listaIdentificadores.toArray()[listaIdentificadores.size() - 1];
         listaIdentificadores.remove(id);
         if (!tabelaSimbolos.containsKey(id)) {
-            throw new SemanticError("identificador não declarado", token.getPosition());
+            throw new SemanticError(id + " não declarado", token.getPosition());
         }
 
         InformacaoIdentificador infos = tabelaSimbolos.get(id);
@@ -446,7 +479,7 @@ public class Semantico implements Constants {
             case "WHILEFALSE":
                 codigo.append(TAB).append("brtrue ").append(rotulo).append(QUEBRA_LINHA);
                 break;
-                
+
             default:
                 throw new RuntimeException("Tipo de verificação não definido: " + verificacao);
         }
@@ -467,7 +500,7 @@ public class Semantico implements Constants {
     private void executarAcaoSemantica31(Token token) {
         String ultimo = pilhaRotulos.pop();
         String penultimo = pilhaRotulos.pop();
-        
+
         codigo.append(TAB).append("br ").append(penultimo).append(QUEBRA_LINHA);
         codigo.append(TAB).append(ultimo).append(":").append(QUEBRA_LINHA);
     }
@@ -477,7 +510,7 @@ public class Semantico implements Constants {
         for (String id : listaIdentificadores) {
 
             if (tabelaSimbolos.containsKey(id)) {
-                throw new SemanticError("identificador já declarado", token.getPosition());
+                throw new SemanticError(id + " já declarado", token.getPosition());
             }
 
             tabelaSimbolos.put(id, new InformacaoIdentificador(id, ClasseIdentificador.CONSTANTE, tipo, token.getLexeme()));
@@ -494,8 +527,8 @@ public class Semantico implements Constants {
         return "label" + numeroRotulos;
     }
 
-    private Tipo getTipoPorLexema(String lexema) {
-        switch (lexema.toUpperCase()) {
+    private Tipo getTipoPorLexema(Token token) throws SemanticError {
+        switch (token.getLexeme().toUpperCase()) {
             case "STR":
                 return Tipo.string;
             case "INT":
@@ -505,7 +538,7 @@ public class Semantico implements Constants {
             case "BOOL":
                 return Tipo.bool;
             default:
-                throw new RuntimeException("Tipo não definido");
+                throw new SemanticError("tipo não definido", token.getPosition());
         }
     }
 
@@ -532,8 +565,8 @@ public class Semantico implements Constants {
             default:
                 break;
         }
-        
+
         return null;
     }
-    
+
 }
