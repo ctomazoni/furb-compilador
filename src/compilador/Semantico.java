@@ -227,6 +227,21 @@ public class Semantico implements Constants {
             case "=":
                 codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
                 break;
+            case ">=":
+                codigo.append(TAB).append("clt").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ldc.i4 0").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
+                break;
+            case "<=":
+                codigo.append(TAB).append("cgt").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ldc.i4 0").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
+                break;
+            case "!=":
+                codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ldc.i4 0").append(QUEBRA_LINHA);
+                codigo.append(TAB).append("ceq").append(QUEBRA_LINHA);
+                break;
         }
     }
 
