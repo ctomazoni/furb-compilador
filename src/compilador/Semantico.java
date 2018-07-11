@@ -56,10 +56,10 @@ public class Semantico implements Constants {
                 executarAcaoSemantica10(token);
                 break;
             case 11:
-                executarAcaoSemantica11(token);
+                executarAcaoSemantica11();
                 break;
             case 12:
-                executarAcaoSemantica12(token);
+                executarAcaoSemantica12();
                 break;
             case 13:
                 executarAcaoSemantica13(token);
@@ -110,13 +110,13 @@ public class Semantico implements Constants {
                 executarAcaoSemantica28(token);
                 break;
             case 29:
-                executarAcaoSemantica29(token);
+                executarAcaoSemantica29();
                 break;
             case 30:
-                executarAcaoSemantica30(token);
+                executarAcaoSemantica30();
                 break;
             case 31:
-                executarAcaoSemantica31(token);
+                executarAcaoSemantica31();
                 break;
             case 32:
                 executarAcaoSemantica32(token);
@@ -263,12 +263,12 @@ public class Semantico implements Constants {
         }
     }
 
-    private void executarAcaoSemantica11(Token token) {
+    private void executarAcaoSemantica11() {
         pilhaTipos.push(Tipo.bool);
         codigo.append(TAB).append("ldc.i4.1").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica12(Token token) {
+    private void executarAcaoSemantica12() {
         pilhaTipos.push(Tipo.bool);
         codigo.append(TAB).append("ldc.i4.0").append(QUEBRA_LINHA);
     }
@@ -486,18 +486,18 @@ public class Semantico implements Constants {
         pilhaRotulos.push(rotulo);
     }
 
-    private void executarAcaoSemantica29(Token token) {
+    private void executarAcaoSemantica29() {
         codigo.append(TAB).append(pilhaRotulos.pop()).append(": ").append(QUEBRA_LINHA);
     }
 
-    private void executarAcaoSemantica30(Token token) {
+    private void executarAcaoSemantica30() {
         String rotulo = getProximoRotulo();
         codigo.append(TAB).append("br ").append(rotulo).append(QUEBRA_LINHA);
         codigo.append(TAB).append(pilhaRotulos.pop()).append(":").append(QUEBRA_LINHA);
         pilhaRotulos.push(rotulo);
     }
 
-    private void executarAcaoSemantica31(Token token) {
+    private void executarAcaoSemantica31() {
         String ultimo = pilhaRotulos.pop();
         String penultimo = pilhaRotulos.pop();
 
