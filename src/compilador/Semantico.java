@@ -233,7 +233,7 @@ public class Semantico implements Constants {
         if (isTiposCompativeis(tipo1, tipo2, operador)) {
             pilhaTipos.push(Tipo.bool);
         } else {
-            throw new SemanticError("tipos incompátíveis em expressão relacional", token.getPosition());
+            throw new SemanticError("tipos incompatíveis em expressão relacional", token.getPosition());
         }
         switch (operador) {
             case ">":
